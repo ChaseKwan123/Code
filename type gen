@@ -1,0 +1,24 @@
+import discord
+import random
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = discord.Client(intents=intents)
+
+caracteres = "🔥🌊🌿🌎💨⚡🔮🐉🌑🧊👊🏻🪨🐛🧚🏻👻⚪🤢⚔️"
+
+@client.event
+async def on_ready():
+    print(f'We have logged in as {client.user}')
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.content.startswith('$generate'):
+        clave = random.choice(caracteres)
+        await message.channel.send(f'Tu emoji es: {clave}')
+
+client.run("nuh uh")
