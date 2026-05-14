@@ -1,0 +1,28 @@
+from flask import Flask
+import random
+import os
+
+app = Flask(__name__)
+factos = ["Winds on Neptune can blow faster than 1,200 miles an hour.","The Caesar salad was invented in 1924.","The sun is about 400 times larger than the moon."]
+@app.route("/")
+def home():
+    return f'<h1>See a Cool Random Fact!</h1> <a href="/random_facts">Right Here! </a><h1>See funny memes!</h1> <a href="/meme_corner">Right Here!'
+@app.route("/random_facts")
+def hello_world():
+    return f"<p>{random.choice(factos)}</p>"
+@app.route("/meme_corner")
+@app.route("/meme_corner")
+def photo():
+    # 1. Get a fresh list and pick a random image INSIDE the function
+    images = os.listdir("static")
+    selected_photo = random.choice(images)
+    
+    # 2. Return an HTML <img> tag, not just the filename
+    # We use /static/ if you renamed the folder, or /meme/ if using a helper
+    return f'''
+        <h1>Check out this meme!</h1>
+        <img src="/static/{selected_photo}" width="400">
+        <br>
+        <a href="/">Go Back</a>
+    '''
+app.run(debug=True)
